@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import React, { Component } from 'react';
 
 import '../css/table.css';
@@ -9,18 +10,22 @@ class ContactsTable extends Component {
     super(props);
 
     this.state = {
-      contacts: [{
-        name: 'Rosemilson'
-      }, {
-        name: 'Bia'
-      }]
+      contacts: []
     }
+  }
+
+  componentDidMount() {
+    axios
+      .get('https://localhost:5001/api/contacts')
+      .then(response => this.setState({
+        contacts: response.data
+      })).catch(() => {})
   }
 
   render() {
     let contacts = this.state.contacts.map((contact, index) => {
       return (
-        <tr>
+        <tr key={contact.id}>
           <td>{`${index + 1}`.padStart(3, 0)}</td>
           <td>{contact.name}</td>
           <td>

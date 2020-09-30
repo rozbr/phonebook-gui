@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, BrowserRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-import PhonesBook from './js/Phonesbook.js';
+import Phonesbook from './js/Phonesbook';
 
 
 ReactDOM.render(
-  <PhonesBook />,
+  <BrowserRouter>
+    <Route
+      exact
+      path="/"
+      component={Phonesbook} />
+  </BrowserRouter>,
   document.getElementById('root')
 )

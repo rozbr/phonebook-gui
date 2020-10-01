@@ -130,6 +130,9 @@ class ViewContact extends Component {
     let promise
     let contact = this.state.contact
 
+    contact.phones = contact.phones.filter(phone => !!phone.phone)
+    contact.emails = contact.emails.filter(email => !!email.email)
+
     if (contact.id)
       promise = ContactsManager.updateContact(contact.id, contact)
     else

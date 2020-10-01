@@ -30,7 +30,7 @@ class ViewContact extends Component {
               name={`${field}.${index}.label`}
               placeholder="Label"
               className="form-control col-sm-6 text-right font-weight-bold"
-              value={currentField.label + ':' || ''}
+              value={(currentField.label || 'SEM LABEL') + ':'}
               onChange={this.handleChange} />
 
             <input

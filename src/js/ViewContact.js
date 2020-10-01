@@ -13,6 +13,45 @@ class ViewContact extends Component {
     }
   }
 
+  renderInputs = (field, fieldName) => {
+    let contact = this.state.contact || {};
+    let fields = contact ? (contact[field] || []) : [];
+
+    if (fields.length) {
+      // phones -> phone
+      // emails -> email
+      let aux = field.slice(0, -1)
+
+      return fields.map((currentField, index) => {
+        return (
+          <div key={`${field}_${index}`} className="input-group offset-sm-2 col-sm-8">
+            <input
+              readOnly
+              name={`${field}.${index}.label`}
+              placeholder="Label"
+              className="form-control col-sm-6 text-right font-weight-bold"
+              value={currentField.label + ':' || ''}
+              onChange={this.handleChange} />
+
+            <input
+              readOnly
+              name={`${field}.${index}.phone`}
+              placeholder={fieldName}
+              className="form-control col-sm-6"
+              value={currentField[aux] || ''}
+              onChange={this.handleChange} />
+          </div>
+        );
+      })
+    }
+
+    return (
+      <div className="col-sm-12">
+        <h5 className="text-center">Nenhum {fieldName} encontrado!</h5>
+      </div>
+    );
+  }
+
   componentDidMount() {
     ContactsManager
       .getContact(this.props.match.params.id)
@@ -23,26 +62,6 @@ class ViewContact extends Component {
   render() {
     let contact = this.state.contact;
     let address = contact ? contact.address : {};
-
-    let phones = contact ? ( contact.phones || [] ) : [];
-    phones = phones.map(phone => {
-      return (
-        <div className="row form-group col-sm-12">
-          <label className="col-form-label text-right font-weight-bold col-sm-6">{phone.label}:</label>
-          <label className="col-form-label col-sm-6">{phone.phone}</label>
-        </div>
-      );
-    });
-
-    let emails = contact ? ( contact.emails || [] ) : [];
-    emails = emails.map(email => {
-      return (
-        <div className="row form-group col-sm-12">
-          <label className="col-form-label text-right font-weight-bold col-sm-6">{email.label}:</label>
-          <label className="col-form-label col-sm-6">{email.email}</label>
-        </div>
-      );
-    })
 
     return (
       <div className="container">
@@ -134,14 +153,14 @@ class ViewContact extends Component {
             &nbsp;
 
             <h4 className="text-center col-sm-12">Telefones</h4>
-            { phones }
+            {this.renderInputs('phones', 'Telefone')}
           </div>
 
           <div className="row form-group">
             &nbsp;
 
             <h4 className="text-center col-sm-12">Emails</h4>
-            { emails }
+            {this.renderInputs('emails', 'Email')}
           </div>
         </div>
       </div>

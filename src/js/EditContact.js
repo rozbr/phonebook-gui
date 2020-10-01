@@ -112,6 +112,27 @@ class ViewContact extends Component {
       });
   }
 
+  saveContact = () => {
+    let url
+    let action
+    let postAction
+    let contact = this.state.contact;
+
+    if (contact.id) {
+      action = axios.put
+      url = `https://localhost:5001/api/contacts/${contact.id}`
+      postAction = () => { window.location = '/' }
+    } else {
+      action = axios.post
+      url = 'https://localhost:5001/api/contacts'
+      postAction = () => { window.location.reload() }
+    }
+
+    action(url, contact)
+      .then(postAction)
+      .catch(() => {});
+  }
+
   render() {
     let contact = this.state.contact || {};
     let address = contact.address || {};
@@ -241,7 +262,8 @@ class ViewContact extends Component {
             <input
               type="button"
               className="btn btn-primary form-control"
-              value="Salvar" />
+              value="Salvar"
+              onClick={ this.saveContact }/>
         </div>
         </div>
       </div>

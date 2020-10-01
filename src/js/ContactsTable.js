@@ -1,5 +1,4 @@
 
-import axios from 'axios';
 import React, { Component } from 'react';
 
 import ContactsManager from './ContactsManager';
@@ -20,6 +19,13 @@ class ContactsTable extends Component {
       .then(contacts => {
         this.setState({ contacts })
       }).catch(() => {})
+  }
+
+  deleteContact(id) {
+    ContactsManager
+      .deleteContact(id)
+      .then(() => { window.location.reload() })
+      .catch(() => {});
   }
 
   render() {
@@ -45,7 +51,9 @@ class ContactsTable extends Component {
             
             &nbsp;
 
-            <button className="btn btn-danger">
+            <button
+              className="btn btn-danger"
+              onClick={() => { this.deleteContact(contact.id) }}>
               <i className="fa fa-trash"></i>
             </button>
           </td>

@@ -28,6 +28,13 @@ class ContactsManager {
       .catch(reject);
   })
 
+  static deleteContact = (contactId) => new Promise((resolve, reject) => {
+    axios
+      .delete(`${this.BASE_URL}/api/contacts/${contactId}`)
+      .then(resolve)
+      .catch(reject);
+  })
+
   static createContact = (contact) => new Promise((resolve, reject) => {
     axios
       .post(`${this.BASE_URL}/api/contacts`, contact)

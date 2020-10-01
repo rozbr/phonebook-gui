@@ -19,6 +19,20 @@ class PhonesBook extends Component {
           &nbsp;
 
           <div className="row">
+            <button
+              className="btn btn-primary form-control"
+              onClick={() => window.location = '/contacts/create'}>
+              <i className="fa fa-user-plus"></i>
+
+              &nbsp;
+
+              Adicionar Contato
+            </button>
+          </div>
+
+          &nbsp;
+
+          <div className="row">
             <ContactsTable />
           </div>
         </div>

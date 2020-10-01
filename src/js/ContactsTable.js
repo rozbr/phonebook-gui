@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import swal from '@sweetalert/with-react';
 
 import ContactsManager from './ContactsManager';
 import AlertsManager from './AlertsManager';

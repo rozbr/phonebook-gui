@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import ContactsManager from './ContactsManager';
+import AlertsManager from './AlertsManager';
 
 
 class ViewContact extends Component {
@@ -126,18 +127,24 @@ class ViewContact extends Component {
   }
 
   saveContact = () => {
+    let promise
     let contact = this.state.contact
 
     if (contact.id)
-      ContactsManager
-        .updateContact(contact.id, contact)
-        .then(() => { window.location = '/' })
-        .catch(() => {});
+      promise = ContactsManager.updateContact(contact.id, contact)
     else
-      ContactsManager
-        .createContact(this.state.contact)
-        .then(() => { window.location.reload() })
-        .catch(() => {});
+      promise = ContactsManager.createContact(this.state.contact)
+
+    promise
+      .then(() => {
+        AlertsManager
+          .showActionSucceeded()
+          .then(() => window.location = '/');
+      }).catch(() => {
+        AlertsManager
+          .showActionFailed()
+          .then(() => window.location = '/');
+      });
   }
 
   render() {

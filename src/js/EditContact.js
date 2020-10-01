@@ -69,7 +69,7 @@ class ViewContact extends Component {
               onChange={this.handleChange} />
 
             <input
-              name={`${field}.${index}.phone`}
+              name={`${field}.${index}.${aux}`}
               placeholder={fieldName}
               className="form-control col-sm-6"
               value={currentField[aux] || ''}

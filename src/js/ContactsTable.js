@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 
-import '../css/table.css';
+import ContactsManager from './ContactsManager';
 
 
 class ContactsTable extends Component {
@@ -15,11 +15,11 @@ class ContactsTable extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get('https://localhost:5001/api/contacts')
-      .then(response => this.setState({
-        contacts: response.data
-      })).catch(() => {})
+    ContactsManager
+      .getContacts()
+      .then(contacts => {
+        this.setState({ contacts })
+      }).catch(() => {})
   }
 
   render() {

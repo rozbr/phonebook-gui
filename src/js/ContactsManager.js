@@ -24,7 +24,7 @@ class ContactsManager {
   static getContacts = () => new Promise((resolve, reject) => {
     axios
       .get(`${this.BASE_URL}/api/contacts`)
-      .then(resolve)
+      .then(response => resolve(response.data))
       .catch(reject);
   })
 

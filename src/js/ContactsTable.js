@@ -29,13 +29,17 @@ class ContactsTable extends Component {
           <td>{`${index + 1}`.padStart(3, 0)}</td>
           <td>{contact.name}</td>
           <td>
-            <button className="btn btn-success">
+            <button
+              className="btn btn-success"
+              onClick={ () => { window.location = `/contacts/view/${contact.id}` } }>
               <i className="fa fa-eye"></i>
             </button>
             
             &nbsp;
             
-            <button className="btn btn-warning">
+            <button
+              className="btn btn-warning"
+              onClick={() => { window.location = `/contacts/edit/${contact.id}` }}>
               <i className="fa fa-edit"></i>
             </button>
             

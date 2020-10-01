@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import ContactsManager from './ContactsManager';
 
 
 class ViewContact extends Component {
@@ -14,11 +14,10 @@ class ViewContact extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`https://localhost:5001/api/contacts/${ this.props.match.params.id }`)
-      .then(response => this.setState({
-        contact: response.data
-      })).catch(() => {});
+    ContactsManager
+      .getContact(this.props.match.params.id)
+      .then(contact => this.setState({ contact }))
+      .catch(() => {});
   }
 
   render() {

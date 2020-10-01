@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 
-import axios from 'axios';
+import ContactsManager from './ContactsManager';
 
 
 class ViewContact extends Component {
@@ -97,10 +97,10 @@ class ViewContact extends Component {
   componentDidMount() {
     let contact
 
-    axios
-      .get(`https://localhost:5001/api/contacts/${this.props.match.params.id}`)
-      .then(response => {
-        contact = response.data;
+    ContactsManager
+      .getContact(this.props.match.params.id)
+      .then(returnedContact => {
+        contact = returnedContact;
       }).catch(() => {
         contact = {};
       }).finally(() => {
@@ -113,24 +113,18 @@ class ViewContact extends Component {
   }
 
   saveContact = () => {
-    let url
-    let action
-    let postAction
-    let contact = this.state.contact;
+    let contact = this.state.contact
 
-    if (contact.id) {
-      action = axios.put
-      url = `https://localhost:5001/api/contacts/${contact.id}`
-      postAction = () => { window.location = '/' }
-    } else {
-      action = axios.post
-      url = 'https://localhost:5001/api/contacts'
-      postAction = () => { window.location.reload() }
-    }
-
-    action(url, contact)
-      .then(postAction)
-      .catch(() => {});
+    if (contact.id)
+      ContactsManager
+        .updateContact(contact.id, contact)
+        .then(() => { window.location = '/' })
+        .catch(() => {});
+    else
+      ContactsManager
+        .createContact(this.state.contact)
+        .then(() => { window.location.reload() })
+        .catch(() => {});
   }
 
   render() {

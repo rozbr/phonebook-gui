@@ -96,20 +96,31 @@ class ViewContact extends Component {
 
   componentDidMount() {
     let contact
+    let id = this.props.match.params.id
 
-    ContactsManager
-      .getContact(this.props.match.params.id)
-      .then(returnedContact => {
-        contact = returnedContact;
-      }).catch(() => {
-        contact = {};
-      }).finally(() => {
-        contact.phones = contact.phones || []
-        contact.emails = contact.emails || []
-        contact.address = contact.address || {}
+    if (id && /[a-f0-9]{24}/.test(id))
+      ContactsManager
+        .getContact(id)
+        .then(returnedContact => {
+          contact = returnedContact;
+        }).catch(() => {
+          contact = {};
+        }).finally(() => {
+          contact.phones = contact.phones || []
+          contact.emails = contact.emails || []
+          contact.address = contact.address || {}
 
-        this.setState({ contact });
-      });
+          this.setState({ contact });
+        });
+    else {
+      this.setState({
+        contact: {
+          phones: [],
+          emails: [],
+          address: {}
+        }
+      })
+    }
   }
 
   saveContact = () => {

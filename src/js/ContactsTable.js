@@ -1,7 +1,9 @@
 
 import React, { Component } from 'react';
+import swal from '@sweetalert/with-react';
 
 import ContactsManager from './ContactsManager';
+import AlertsManager from './AlertsManager';
 
 
 class ContactsTable extends Component {
@@ -21,11 +23,22 @@ class ContactsTable extends Component {
       }).catch(() => {})
   }
 
-  deleteContact(id) {
-    ContactsManager
-      .deleteContact(id)
-      .then(() => { window.location.reload() })
-      .catch(() => {});
+  deleteContact(id, name) {
+    AlertsManager
+      .showRemotionConfirm(name)
+      .then(() => {
+        ContactsManager
+          .deleteContact(id)
+          .then(() => {
+            AlertsManager
+              .showActionSucceeded()
+              .then(() => window.location.reload());
+          }).catch(() => {
+            AlertsManager
+              .showActionFailed()
+              .then(() => window.location.reload());
+          });
+      }).catch(() => {});
   }
 
   render() {
@@ -59,7 +72,7 @@ class ContactsTable extends Component {
               className="btn btn-danger"
               data-toggle="tooltip"
               title="Deletar Contato"
-              onClick={() => { this.deleteContact(contact.id) }}>
+              onClick={() => { this.deleteContact(contact.id, contact.name) }}>
               <i className="fa fa-trash"></i>
             </button>
           </td>

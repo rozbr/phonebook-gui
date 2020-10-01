@@ -37,6 +37,8 @@ class ContactsTable extends Component {
           <td>
             <button
               className="btn btn-success"
+              data-toggle="tooltip"
+              title="Visualizar Contato"
               onClick={ () => { window.location = `/contacts/view/${contact.id}` } }>
               <i className="fa fa-eye"></i>
             </button>
@@ -45,6 +47,8 @@ class ContactsTable extends Component {
             
             <button
               className="btn btn-warning"
+              data-toggle="tooltip"
+              title="Editar Contato"
               onClick={() => { window.location = `/contacts/edit/${contact.id}` }}>
               <i className="fa fa-edit"></i>
             </button>
@@ -53,6 +57,8 @@ class ContactsTable extends Component {
 
             <button
               className="btn btn-danger"
+              data-toggle="tooltip"
+              title="Deletar Contato"
               onClick={() => { this.deleteContact(contact.id) }}>
               <i className="fa fa-trash"></i>
             </button>

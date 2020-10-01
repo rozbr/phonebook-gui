@@ -78,6 +78,8 @@ class ViewContact extends Component {
             <span className="input-group-button">
               <button
                 className="btn btn-danger"
+                data-toggle="tooltip"
+                title={`Remover esse ${fieldName}`}
                 onClick={() => this.removeInput(field, index)}>
                 <i className="fa fa-trash"></i>
               </button>

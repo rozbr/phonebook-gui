@@ -1,7 +1,7 @@
 
 export default {
   server: {
-    host: 'https://localhost:5001',
+    host: 'https://localhost',
     port: '5001'
   }
 }

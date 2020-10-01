@@ -134,6 +134,24 @@ class ViewContact extends Component {
     return (
       <div className="container">
         <div className="form-horizontal">
+          &nbsp;
+
+          <div className="row form-group">
+            <div className="offset-sm-1 col-sm-2">
+              <button
+                className="btn btn-primary form-control"
+                onClick={() => { window.location = '/' }}>
+                <i className="fa fa-arrow-left"></i>
+
+                &nbsp;
+
+                Voltar
+              </button>
+            </div>
+          </div>
+
+          &nbsp;
+
           <div className="row form-group">
             &nbsp;
 
